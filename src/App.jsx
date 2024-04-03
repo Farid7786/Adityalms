@@ -1,7 +1,29 @@
-export default function App() {
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import Home from './pages/Home'
+import SignIn from './pages/SignIn'
+import Signup from './pages/Signup'
+import Campuslife from './pages/Campuslife'
+import Contact from './pages/Contact'
+import Departments from './pages/Departments'
+import About from './pages/About'
+import Header from './components/Header'
+import Signintype from './pages/Signintype'
+function App() {
   return (
-    <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
+    <BrowserRouter>
+    <Header/>
+    <Routes>
+      <Route path="/"  element={<Home />} />
+      <Route path="/signin" element={<SignIn />} />
+      <Route path="/signup" element={<Signup />} />
+      <Route path="/campuslife" element={<Campuslife />} />
+      <Route path="/contact" element={<Contact />} />
+      <Route path="/about" element={<About/>} />
+      <Route path="/department" element={<Departments />} />
+      <Route path="/signintype" element={<Signintype/>} />
+    </Routes>
+    </BrowserRouter>
   )
 }
+
+export default App
