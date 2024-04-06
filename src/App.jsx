@@ -10,6 +10,8 @@ import Header from './components/Header'
 import Signintype from './pages/Signintype'
 import FacultySignup from './pages/FacultySignup'
 import StudentSignup from './pages/StudentSignup'
+import FacultySign from './pages/FacultySign'
+import StudentSignin from './pages/StudentSignin'
 function App() {
   return (
     <BrowserRouter>
@@ -18,8 +20,10 @@ function App() {
       <Route path="/"  element={<Home />} />
       <Route path="/signin" element={<SignIn />} />
       <Route path="/signup" element={<Signup />} />
+      <Route path='/facultysignin' element={<FacultySign/>} />
+      <Route path='/studentsigin' element={<StudentSignin/>} />
       <Route path="/facultysignup" element={<FacultySignup />} />
-      <Route path="/studentsignup" element={<StudentSignup />} />
+      <Route path="/studentsignup" element={<StudentSignup/>} />
       <Route path="/campuslife" element={<Campuslife />} />
       <Route path="/contact" element={<Contact />} />
       <Route path="/about" element={<About/>} />
