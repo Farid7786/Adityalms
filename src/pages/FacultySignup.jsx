@@ -70,7 +70,7 @@ function FacultySignup() {
       </form>
       <div className='mt-3'>
         <span>Have an account?</span>
-        <Link to='/signin'>
+        <Link to='/facultysignin'>
           <span className='text-blue-800 ml-1'>Sign in</span>
         </Link>
       </div>
