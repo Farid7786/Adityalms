@@ -12,6 +12,8 @@ import FacultySignup from './pages/FacultySignup'
 import StudentSignup from './pages/StudentSignup'
 import FacultySign from './pages/FacultySign'
 import StudentSignin from './pages/StudentSignin'
+import Profile from './pages/Profile'
+import PrivateRoutes from './components/PrivateRoutes'
 function App() {
   return (
     <BrowserRouter>
@@ -29,6 +31,9 @@ function App() {
       <Route path="/about" element={<About/>} />
       <Route path="/department" element={<Departments />} />
       <Route path="/signintype" element={<Signintype/>} />
+      <Route element={<PrivateRoutes/>}>
+        <Route path='/profile' element={<Profile/>}/>
+      </Route>
     </Routes>
     </BrowserRouter>
   )

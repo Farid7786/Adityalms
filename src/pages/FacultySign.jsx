@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { FaArrowLeft } from "react-icons/fa";
 import { Link , useNavigate} from 'react-router-dom';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { signInSuccess,signInFailure,signInStart } from '../redux/user/userslice';
 function FacultySign() {
   const [formdata, setFormdata] = useState({});
-  const [error,setError] = useState(null);
-  const [loading, SetLoading] = useState(false);
+  const { loading, error } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleChange = (e) =>{
     setFormdata({
@@ -16,7 +17,7 @@ function FacultySign() {
   const handleSubmit = async (e)=>{
     e.preventDefault();
     try {
-      SetLoading(true);
+      dispatch(signInStart());
       const res = await fetch('/api/faculty/signin',
       {
         method : 'POST',
@@ -29,16 +30,13 @@ function FacultySign() {
     const data = await res.json();
     console.log(data);
     if(data.success ===  false){
-      SetLoading(false);
-      setError(data.message);
+      dispatch(signInFailure(data.message));
       return;
     }
-    SetLoading(false);
-    setError(null);
+    dispatch(signInSuccess(data));
     navigate('/');
     } catch (error) {
-      SetLoading(false);
-      setError(error.message);
+      dispatch(signInFailure(error.message));
     }
   }
   return (

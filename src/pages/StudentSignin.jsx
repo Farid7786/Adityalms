@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { FaArrowLeft } from "react-icons/fa";
 import { Link , useNavigate} from 'react-router-dom';
-import Student from '../../../api/models/Student.model';
+import { useDispatch, useSelector } from 'react-redux';
+import { signInSuccess,signInFailure,signInStart } from '../redux/user/userslice';
 
 function StudentSignin() {
   const [formdata, setFormdata] = useState({});
-  const [error,setError] = useState(null);
-  const [loading, SetLoading] = useState(false);
+  const { loading, error } = useSelector((state) => state.user);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const handleChange = (e) =>{
     setFormdata({
       ...formdata,
@@ -17,8 +18,8 @@ function StudentSignin() {
   const handleSubmit = async (e)=>{
     e.preventDefault();
     try {
-      SetLoading(true);
-      const res = await fetch('/api/faculty/signin',
+      dispatch(signInStart());
+      const res = await fetch('/api/student/signin',
       {
         method : 'POST',
         headers : {
@@ -30,16 +31,13 @@ function StudentSignin() {
     const data = await res.json();
     console.log(data);
     if(data.success ===  false){
-      SetLoading(false);
-      setError(data.message);
+      dispatch(signInFailure(data.message));
       return;
     }
-    SetLoading(false);
-    setError(null);
+    dispatch(signInSuccess(data));
     navigate('/');
     } catch (error) {
-      SetLoading(false);
-      setError(error.message);
+      dispatch(signInFailure(error.message));
     }
   }
   return (
@@ -68,7 +66,7 @@ function StudentSignin() {
       <div className='mt-3'>
         <span>Dont have an account?</span>
         <Link to='/studentsignup'>
-          <span className='text-blue-800 ml-1'>Sign up</span>
+          <span className='text-blue-800 ml-1'>Sign in</span>
         </Link>
       </div>
       {error && <p className='text-red-500'>{error}</p>}
